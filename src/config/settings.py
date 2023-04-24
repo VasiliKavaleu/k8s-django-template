@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 from decouple import config
 from dj_database_url import parse as db_url
@@ -109,6 +110,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

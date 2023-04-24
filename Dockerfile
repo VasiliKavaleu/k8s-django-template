@@ -17,12 +17,13 @@ RUN pip install -U pip setuptools wheel \
       && rm -rf /wheels \
       && rm -rf /root/.cache/pip/*
 
-WORKDIR /code
-COPY . .
+WORKDIR /usr/src/app
+COPY src/ .
+COPY docker/ ./docker
 
 EXPOSE 8000
-ENV PYTHONPATH /code
+ENV PYTHONPATH /usr/src/app
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "-c", "docker/gunicorn.py", "src.config.wsgi:application"]
+CMD ["gunicorn", "-c", "docker/gunicorn.py", "config.wsgi:application"]

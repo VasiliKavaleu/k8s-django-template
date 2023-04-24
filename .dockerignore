@@ -27,3 +27,4 @@ stats
 Dockerfile
 .git*
 kube
+static/
