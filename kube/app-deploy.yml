@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-django-tmp
+  labels:
+    app.kubernetes.io/name: app-django-tmp
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-django-tmp
+      app.kubernetes.io/component: web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app-django-tmp # Service will look for those PODS labels
+        app.kubernetes.io/component: web
+    spec:
+      containers:
+        - name: django-temp
+          image: vasili10k/django-temp
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
