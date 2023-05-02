@@ -1,3 +1,7 @@
+Check that all resources have been created
+```commandline
+kubectl get all
+```
 
 View log from Pod
 ```commandline
@@ -33,6 +37,11 @@ kubectl rollout restart deployment <deployment_name>
 Delete resource
 ```commandline
 kubectl delete deployment --all
+```
+
+Delete all resources
+```commandline
+kubectl delete all --all -n {namespace}
 ```
 
 Returns the Kubernetes URL(s) for service(s) in your local cluster.

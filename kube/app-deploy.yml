@@ -25,15 +25,30 @@ spec:
             - containerPort: 8000
               name: http
           env:
-            - name: POSTGRES_PASSWORD
+            - name: POSTGRES_PASSWORD     # Env name in container
               valueFrom:
                 secretKeyRef:
-                  name: pg-secret
-                  key: pg-password
+                  name: pg-secret         # Secret name
+                  key: POSTGRES_PASSWORD  # Env name from secret file
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: pg-secret
-                  key: pg-user
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: POSTGRES_DB
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:          # Get Env value from ConfigMap
+                  name: app-config        # ConfigMap name
+                  key: debug
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: secret_key
             - name: DATABASE_URL
-              value: "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@pg:5432/postgres"
+              value: "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@pg:5432/$(POSTGRES_DB)"

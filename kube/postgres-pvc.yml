@@ -1,0 +1,15 @@
+# The PersistentVolumeClaim is the object that is assigned to the deployment.
+# The PersistentVolumeClaim defines how the volume needs to be,
+# and Kubernetes tries to find a corresponding PersistentVolume that satisfies all the requirements.
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-pv-claim
+spec:
+  storageClassName: manual   #  will be used to bind PersistentVolumeClaim requests to this PersistentVolume.
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
