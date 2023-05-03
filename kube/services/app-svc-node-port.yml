@@ -1,0 +1,20 @@
+## for testing purpose
+
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: app-django-tmp
+#  labels:
+#    app.kubernetes.io/name: app-django-tmp
+#    app.kubernetes.io/component: web
+#spec:
+#  type: NodePort
+#  ports:
+#    - port: 80              # Inside the cluster, what port does the service expose
+#      targetPort: http      # Which port do pods selected by this service expose
+#      protocol: TCP
+#      name: http
+#      nodePort: 30100       # Which port on the node is the service available through (30000–32767)
+#  selector:
+#    app.kubernetes.io/name: app-django-tmp
+#    app.kubernetes.io/component: web

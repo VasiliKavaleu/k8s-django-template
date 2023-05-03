@@ -1,3 +1,36 @@
+## Django project template to run in k8s
+
+#### Steps to reproduce
+
+Start local cluster - minikube
+```commandline
+minikube start
+```
+
+Enable ingress-controller
+```commandline
+minikube addons enable ingress
+```
+
+Get minikube ip
+```commandline
+minikube ip
+```
+
+Add host name ``app-test.com`` with local cluster ip to local storage
+```commandline
+sudo vim /etc/hosts
+```
+
+Apply k8s manifests
+```commandline
+kubectl apply -f ./kube/
+```
+
+View App start page by the link [http://app-test.com/](http://app-test.com/)
+
+### Additional commands
+
 Check that all resources have been created
 ```commandline
 kubectl get all
@@ -18,15 +51,14 @@ Enter to container
 kubectl exec -it <pod-name>" -- bash
 ```
 
-
 Get Env from Pod
 ```commandline
-kubectl exec envar-demo -- printenv
+kubectl exec <pod-name> -- printenv
 ```
 
 Detailed Pod info
 ```commandline
-kubectl describe <some_pod>
+kubectl describe <pod-name>
 ```
 
 Restart pods in deployment
@@ -44,7 +76,14 @@ Delete all resources
 kubectl delete all --all -n {namespace}
 ```
 
+### Additional minikube commands
+
 Returns the Kubernetes URL(s) for service(s) in your local cluster.
 ```commandline
 minikube service <service_name>
+```
+
+List all minikube addons
+```commandline
+minikube addons list
 ```
