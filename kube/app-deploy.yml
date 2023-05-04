@@ -52,3 +52,30 @@ spec:
                   key: secret_key
             - name: DATABASE_URL
               value: "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@pg:5432/$(POSTGRES_DB)"
+
+        - name: nginx-for-django-temp
+          image: nginx
+          ports:
+            - containerPort: 8080
+              name: http-nginx
+          volumeMounts:
+            - mountPath: /etc/nginx # mount nginx-conf volume to /etc/nginx
+              readOnly: true
+              name: nginx-conf     # from 'volumes' 'nginx-conf' name
+            - name: static
+              mountPath: /usr/share/nginx/static # also defined in root from nginx config
+      volumes:
+        - name: static            # volume that is first created when a Pod is assigned to a node
+          emptyDir: { }
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf      # place ConfigMap `nginx-conf` on /etc/nginx
+
+      # on container startup, move the collected staticfiles
+      initContainers:
+        - name: move-static-for-app
+          image: vasili10k/django-temp
+          volumeMounts:
+            - name: static
+              mountPath: /usr/src/app/static    # path to static folder in project
+          command: [ python, manage.py, collectstatic, --noinput ]

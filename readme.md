@@ -22,9 +22,14 @@ Add host name ``app-test.com`` with local cluster ip to local storage
 sudo vim /etc/hosts
 ```
 
-Apply k8s manifests
+Apply k8s manifests (configs, storages, services, deployments, ingress)
 ```commandline
-kubectl apply -f ./kube/
+kubectl apply -f ./kube/../<manifest-name.yml>
+```
+
+Make migrations
+```commandline
+kubectl apply -f ./kube/jobs/migration.yml
 ```
 
 View App start page by the link [http://app-test.com/](http://app-test.com/)
@@ -34,6 +39,11 @@ View App start page by the link [http://app-test.com/](http://app-test.com/)
 Check that all resources have been created
 ```commandline
 kubectl get all
+```
+
+Get detailed info about Pod
+```commandline
+kubectl get pod <pod_name>  --output=yaml
 ```
 
 View log from Pod
@@ -49,6 +59,11 @@ kubectl get pods --show-labels
 Enter to container
 ```commandline
 kubectl exec -it <pod-name>" -- bash
+```
+
+Enter to specific container in the pod (Multi-Container Pods)
+```commandline
+kubectl exec -it <pod-name> -c nginx-for-django-temp -- bash
 ```
 
 Get Env from Pod

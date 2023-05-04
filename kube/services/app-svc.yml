@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/component: web
 spec:
   ports:
-    - port: 80
-      targetPort: http
+    - port: 80                    # Inside the cluster, what port does the service expose
+      targetPort: http-nginx      # Which port do pods selected by this service expose
       protocol: TCP
       name: http
   selector:
