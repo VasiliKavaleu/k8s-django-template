@@ -81,6 +81,7 @@ Restart pods in deployment
 kubectl rollout restart deployment <deployment_name>
 ```
 
+
 Delete resource
 ```commandline
 kubectl delete deployment --all
