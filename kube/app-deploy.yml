@@ -22,7 +22,7 @@ spec:
           image: vasili10k/django-temp
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8000
+            - containerPort: 8000 # we may not define this port because for nginx it will be accessible inside the Pod
               name: http
           env:
             - name: POSTGRES_PASSWORD     # Env name in container
