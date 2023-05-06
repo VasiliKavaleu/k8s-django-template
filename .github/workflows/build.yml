@@ -10,7 +10,7 @@ on:
 
 jobs:
   test_django_job:
-    uses: VasiliKavaleu/k8s-django-template/.github/workflows/test-django.yaml@main
+    uses: VasiliKavaleu/k8s-django-template/blob/master/.github/workflows/test-django.yml
   build:
     runs-on: ubuntu-latest
     needs: [test_django_job]
