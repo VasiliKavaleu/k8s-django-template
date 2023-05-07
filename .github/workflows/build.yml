@@ -23,6 +23,6 @@ jobs:
         with:
           image: vasili10k/django-temp
           tags: ${GITHUB_SHA::7}
-          registry: registry-url.io    # name of Docker registry
+          registry: docker.io    # name of Docker registry
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
