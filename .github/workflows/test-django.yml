@@ -1,15 +1,16 @@
-name: Django CI & Postgres Test
+name: Django CI & Postgres Test    # is displayed on repos action page [optional]
 
-on:
-  workflow_call:
-  workflow_dispatch:
-#  push:
-#    branches: [main]
-#  pull_request:
-#    branches: [main]
-jobs:
+on:                         # workflow triggers [required]
+  workflow_call:            # means that can be called from other workflow process
+  workflow_dispatch:        # means that can be called manually
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:                      # one or more jobs [required]
   django_test:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     defaults:
       run:
         working-directory: .
@@ -35,14 +36,16 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [ 3.9 ]
-    steps:
-      - uses: actions/checkout@v3
+        os: [ubuntu-latest]
+    steps:                            # steps can run commands, setup tasks OR run an action
+      - uses: actions/checkout@v3     # select an action
+        name: Check out code
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Dependencies
-        run: |
+        run: |                        # runs a command-line command
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run Tests
