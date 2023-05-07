@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test_django_job]
     env:
-      tag: ${{ GITHUB_SHA::7 }}
+      tag: ${{ github.sha::7 }}
     steps:
       - uses: actions/checkout@v3
         name: Check out code
