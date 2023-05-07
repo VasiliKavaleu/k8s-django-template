@@ -4,9 +4,9 @@ on:                         # workflow triggers [required]
   workflow_call:            # means that can be called from other workflow process
   workflow_dispatch:        # means that can be called manually
   push:
-    branches: [master]
+    branches: [dev]
   pull_request:
-    branches: [master]
+    branches: [dev]
 
 jobs:                      # one or more jobs [required]
   django_test:
